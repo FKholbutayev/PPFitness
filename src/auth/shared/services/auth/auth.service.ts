@@ -15,9 +15,7 @@ export class AuthService {
 
     auth$ = this.af.authState
         .do(next => {
-            console.log("what is next", next)
             if(!next) {
-                console.log("no user")
                 this.store.set('user', null)
                 return
             }
@@ -33,6 +31,14 @@ export class AuthService {
         private store:Store, 
         private af:AngularFireAuth, 
     ) {}
+
+    get user() {
+        return this.af.auth.currentUser;
+    }
+
+    get authState() {
+        return this.af.authState;
+    }
 
     createUser(email:string, password:string) {
         return this.af.auth
