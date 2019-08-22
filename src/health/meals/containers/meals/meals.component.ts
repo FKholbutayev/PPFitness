@@ -27,6 +27,12 @@ import { Store } from 'store';
                     No meals, add a new to start
                 </div>
                 <!-- show meals -->
+                <list-item 
+                    *ngFor="let meal of meals"
+                    [item]="meal"
+                    (remove)="removeMeal($event)">
+                </list-item>
+
             </div>
             <ng-template #loading>
                 <div class="message">
@@ -47,6 +53,11 @@ export class MealsComponent implements OnInit, OnDestroy {
         private mealsService:MealsService,
         private store:Store, 
     ) {}
+    
+    removeMeal(event:Meal) {
+        this.mealsService.removeMeal(event.$key)
+        console.log("meal remove", event)
+    }
 
     ngOnInit() {
         this.subsription = this.mealsService.meals$.subscribe(); 

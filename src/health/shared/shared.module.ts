@@ -4,7 +4,12 @@ import { RouterModule } from '@angular/router';
 
 //third-party modules 
 import { AngularFireDatabaseModule } from 'angularfire2/database'; 
+
+//services
 import { MealsService } from './services/meals/meals.service';
+
+// components 
+import { ListItemComponent } from './component/list-item/list-item.component'
 
 @NgModule({
     imports: [
@@ -12,7 +17,12 @@ import { MealsService } from './services/meals/meals.service';
         RouterModule,
         AngularFireDatabaseModule
     ], 
-    declarations: []
+    declarations: [
+        ListItemComponent
+    ], 
+    exports: [
+        ListItemComponent
+    ]
 })
 
 export class SharedModule {
