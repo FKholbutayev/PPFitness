@@ -24,12 +24,16 @@ import 'rxjs/add/operator/switchMap'
             </div>
             <div *ngIf="meal$ | async as meal; else loading">
                 <meal-form 
-                    (create)="addMeal($event)">
+                    [meal]="meal"
+                    (create)="addMeal($event)"
+                    (update)="updateMeal($event)"
+                    (remove)="removeMeal($event)">
                 </meal-form>
             </div>
             <ng-template #loading>
                 <div class="message">
                     <img src="/img/loading.svg">
+                    Fetching meal ...
                 </div>
             </ng-template>
         </div>
@@ -63,6 +67,14 @@ export class MealComponent implements OnInit, OnDestroy {
         console.log("meal", event);
         await this.mealsService.addMeal(event)
         this.backToMeals(); 
+
+    }
+
+    updateMeal(event:Meal) {
+        
+    }
+
+    removeMeal(event:Meal) {
 
     }
 
