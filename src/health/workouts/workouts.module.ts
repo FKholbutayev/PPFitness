@@ -12,6 +12,7 @@ import { WorkoutComponent } from './containers/workout/workout.component';
 
 // components  
 import { WorkoutFormComponent } from './components/workout-form/workout-form.component'
+import { WorkoutTypeComponent } from './components/workout-type/workout-type.component';
 
 export const ROUTES:Routes = [
     { path : '', component: WorkoutsComponent }, 
@@ -29,7 +30,8 @@ export const ROUTES:Routes = [
     declarations: [
         WorkoutsComponent, 
         WorkoutComponent, 
-        WorkoutFormComponent
+        WorkoutFormComponent, 
+        WorkoutTypeComponent
     ], 
    
 })
