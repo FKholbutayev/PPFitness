@@ -10,10 +10,14 @@ import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from 
             
             <p class="list-item__name"> {{ item.name }}</p>
             <p class="list-item__ingredients">
-             <span>
-                 {{ item.ingredients }}
+             <span *ngIf="item.ingredients; else showWorkout">
+                 {{ item.ingredients | join }}
              </span>
              </p>
+
+             <ng-template #showWorkout>
+                {{item | workout }}
+             </ng-template>
             
              </a>
 
@@ -57,7 +61,9 @@ toggled = false
 constructor() {}
 
 getRoute(item:any) {
-    return [`../meals`,item.$key]
+    return [
+        `../${item.ingredients ? 'meal' : 'workouts'}`,item.$key
+    ];
 }
 
 toggle() {

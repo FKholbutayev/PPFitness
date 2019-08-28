@@ -12,6 +12,10 @@ import { WorkoutsService } from './services/workouts/workouts.services';
 // components 
 import { ListItemComponent } from './component/list-item/list-item.component'
 
+//pipes
+import { JoinPipe } from './component/pipes/join.pipe';
+import { WorkoutPipe } from './component/pipes/workout.pipe';
+
 @NgModule({
     imports: [
         CommonModule, 
@@ -19,10 +23,14 @@ import { ListItemComponent } from './component/list-item/list-item.component'
         AngularFireDatabaseModule
     ], 
     declarations: [
-        ListItemComponent
+        ListItemComponent, 
+        JoinPipe, 
+        WorkoutPipe
     ], 
     exports: [
-        ListItemComponent
+        ListItemComponent,
+        JoinPipe, 
+        WorkoutPipe
     ]
 })
 
