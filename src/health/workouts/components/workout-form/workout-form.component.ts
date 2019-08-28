@@ -15,7 +15,7 @@ import { Workout } from '../../../shared/services/workouts/workouts.services';
                     <h3>Workout name</h3>
                     <input 
                         type="text"
-                        placeholder="e.g. English Breakfast"
+                        [placeholder]="placeholder"
                         formControlName="name">
                   <div class="error" *ngIf="required">
                     Workout name is required
@@ -160,44 +160,20 @@ export class WorkoutFormComponent implements OnChanges {
         private fb:FormBuilder
     ) {}
 
+    get placeholder() {
+        return `e.g. ${this.form.get('type').value === 'strength' ? 'Benchpress' : 'Treadmil'}`;
+    }
+
     ngOnChanges(changes:SimpleChanges) {
-     /*   console.log("changes", changes)
-        if(this.meal && this.meal.name) {
+        console.log("changes", changes)
+        if(this.workout && this.workout.name) {
             this.exists = true;
-            this.emptyIngridients(); 
-            
-            const value = this.meal; 
-            this.form.patchValue(value);
-            
-            if(value.ingredients) {
-                for (const item of value.ingredients) {
-                    this.ingredients.push(new FormControl(item))
-                }
-            }
-        }*/
-    }
-
-   /* emptyIngridients() {
-        while(this.ingredients.length) {
-            this.ingredients.removeAt(0); 
+            const value = this.workout; 
+            console.log("value on changes", value)
+            this.form.patchValue(value);           
+          
         }
-    }*/
-
-   /* get ingredients() {
-        return this.form.get('ingredients') as FormArray
     }
-
-    get required() {
-        return this.form.get('name').hasError('required') &&
-        this.form.get('name').touched;
-    }
-    addIngredient() {
-        this.ingredients.push(new FormControl(''))
-    }
-
-    removeIngredient(index:number) {
-        this.ingredients.removeAt(index)
-    }*/
 
     createWorkout() {
         if(this.form.valid) {
