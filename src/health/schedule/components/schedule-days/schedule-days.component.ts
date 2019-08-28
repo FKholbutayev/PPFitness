@@ -4,7 +4,7 @@ import { Component } from "@angular/core";
     selector: 'schedule-days', 
     styleUrls: ['schedule-days.component.scss'], 
     template: `
-        <div>
+        <div class="days">
         
         </div>
     `

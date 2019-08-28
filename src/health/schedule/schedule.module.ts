@@ -21,9 +21,9 @@ export const ROUTES:Routes = [
     ], 
     declarations: [
         ScheduleComponent, 
-        ScheduleControlsComponent,
+        ScheduleCalendarComponent,
         ScheduleDaysComponent, 
-        ScheduleCalendarComponent
+        ScheduleControlsComponent,
     ], 
    
 })
