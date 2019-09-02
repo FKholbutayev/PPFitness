@@ -1,42 +1,5 @@
-<h1 align="center">
-<img width="40" valign="bottom" src="https://angular.io/assets/images/logos/angular/angular.svg">
-Angular Pro: Final App Seed
-</h1>
-<h4 align="center">Seed app for fitness manager application using Angular v4+ and AngularFire2.</h4>
-
----
-
-<a href="https://ultimateangular.com" target="_blank"><img src="https://ultimateangular.com/assets/img/banners/ua-github.svg"></a>
-
----
-
-> This repo serves as the seed project for the Ultimate Angular Pro course as well as the final solution in a separate branch, come and [learn advanced Angular](https://ultimateangular.com/courses/) architecture!
-
-[Setup and install](#setup-and-install) |
-[Tasks](#tasks) |
-[Snippets](#snippets) |
-[Firebase Config](#firebase-config) |
-[Resources](#resources)
-
-## Setup and install
-
-Fork this repo from inside GitHub so you can commit directly to your account, or simply download the `.zip` bundle with the contents inside.
-
-#### Dependency installation
-
-During the time building this project, you'll need development dependencies of which run on Node.js, follow the steps below for setting everything up (if you have some of these already, skip to the next step where appropriate):
-
-1. Download and install [Node.js here](https://nodejs.org/en/download/) for Windows or for Mac.
-2. Install Firebase CLI on the command-line with `npm install -g firebase-tools`
-
-That's about it for tooling you'll need to run the project, let's move onto the project install.
-
 #### Project installation and server
 
-Now you've pulled down the repo and have everything setup, using the terminal you'll need to `cd` into the directory that you cloned the repo into and run some quick tasks:
-
-```
-cd <angular-pro-app>
 yarn install
 # OR
 npm install
@@ -70,20 +33,6 @@ npm start
 yarn build:production
 # OR
 npm run build:production
-```
-
-#### Deploying to Firebase
-
-You'll need to ensure you're logged into Firebase first (if you are prompted, otherwise skip to next step):
-
-```
-firebase login
-```
-
-To deploy (after running build task):
-
-```
-firebase deploy
 ```
 
 ## Snippets
