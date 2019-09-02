@@ -13,7 +13,8 @@ import { Subscription } from 'rxjs/Subscription';
     template: `
         <div class="schedule">
             <schedule-calendar
-                [date]="date$ | async">
+                [date]="date$ | async"
+                (change)="changeDate($event)">
             
             </schedule-calendar>
         </div>
@@ -36,6 +37,12 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         this.subsriptions = [
             this.scheduleService.schedule$.subscribe()
         ]    
+    }
+
+    changeDate(date:Date) {
+        console.log("change date", date);
+        this.scheduleService.updateDate(date); 
+
     }
 
     ngOnDestroy() {
