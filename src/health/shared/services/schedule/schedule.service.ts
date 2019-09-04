@@ -10,6 +10,7 @@ import { AuthService } from '../../../../auth/shared/services/auth/auth.service'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/switchMap'
+import { Subject } from 'rxjs/Subject';
 
 export interface ScheduleItem {
     meals: Meal[], 
@@ -31,6 +32,11 @@ export interface ScheduleList {
 export class ScheduleService {
 
     private date$ = new BehaviorSubject(new Date()); 
+    private section$ = new Subject(); 
+
+    selected$ = this.section$
+        .do((next:any)=>this.store.set('selected', next))
+
 
     schedule$: Observable<any> = this.date$
         .do((next) => this.store.set('date', next))
@@ -56,13 +62,19 @@ export class ScheduleService {
             return mapped
         }).do((next:any)=>this.store.set('schedule', next))
          
-
+    
        
 
     constructor(
         private store:Store, 
         private authService: AuthService,
         private db: AngularFireDatabase) {}
+
+    selectSection(event:any) {
+        console.log("final event", event)
+        this.section$.next(event);
+
+    }
 
     updateDate(date:Date) {
         this.date$.next(date);
