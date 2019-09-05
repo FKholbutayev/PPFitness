@@ -17,8 +17,11 @@ import { Subscription } from 'rxjs/Subscription';
                 [items]="schedule$ | async"
                 (change)="changeDate($event)"
                 (select)="changeSection($event)">
-            
             </schedule-calendar>
+
+            <schedule-assign>
+            </schedule-assign>
+
         </div>
     `
 })
