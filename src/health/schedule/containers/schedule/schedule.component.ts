@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { ScheduleService, ScheduleItem } from '../../../shared/services/schedule/schedule.service';
 import { Store } from 'store';
 import { Subscription } from 'rxjs/Subscription';
+import { Workout, WorkoutsService } from '../../../shared/services/workouts/workouts.services';
+import { Meal, MealsService } from '../../../shared/services/meals/meals.service';
 
 
 @Component({
@@ -19,7 +21,10 @@ import { Subscription } from 'rxjs/Subscription';
                 (select)="changeSection($event)">
             </schedule-calendar>
 
-            <schedule-assign>
+            <schedule-assign
+                *ngIf="open"
+                [section]="selected$ | async"
+                [list]="list$ | async">
             </schedule-assign>
 
         </div>
@@ -28,12 +33,18 @@ import { Subscription } from 'rxjs/Subscription';
 
 export class ScheduleComponent implements OnInit, OnDestroy {
     
+    open = false; 
+    
     date$:Observable<Date>; 
-    subsriptions:Subscription[] = []
-    schedule$:Observable<ScheduleItem[]>
+    selected$:Observable<any>;
+    list$:Observable<Meal[] | Workout[]>;
+    subsriptions:Subscription[] = [];
+    schedule$:Observable<ScheduleItem[]>;
     
     constructor(
         private scheduleService:ScheduleService, 
+        private mealsService:MealsService, 
+        private workoutsService:WorkoutsService,
         private store:Store) {
 
     }
@@ -41,10 +52,15 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.date$ = this.store.select('date');
         this.schedule$ = this.store.select('schedule');
+        this.selected$ = this.store.select('selected'); 
+        this.list$ = this.store.select('list');
         
         this.subsriptions = [
             this.scheduleService.schedule$.subscribe(),
-            this.scheduleService.selected$.subscribe()
+            this.scheduleService.selected$.subscribe(), 
+            this.scheduleService.list$.subscribe(), 
+            this.mealsService.meals$.subscribe(), 
+            this.workoutsService.workouts$.subscribe()
         ]    
     }
 
@@ -56,6 +72,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
     changeSection(event:any) {
         console.log("log out", event)
+        this.open = true;
         this.scheduleService.selectSection(event);
     }
 
