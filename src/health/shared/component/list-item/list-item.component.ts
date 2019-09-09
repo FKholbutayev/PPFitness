@@ -62,7 +62,7 @@ constructor() {}
 
 getRoute(item:any) {
     return [
-        `../${item.ingredients ? 'meal' : 'workouts'}`,item.$key
+        `../${item.ingredients ? 'meals' : 'workouts'}`,item.$key
     ];
 }
 

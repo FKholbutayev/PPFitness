@@ -10,6 +10,7 @@ import { AuthService } from '../../../../auth/shared/services/auth/auth.service'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/switchMap'
+import 'rxjs/add/operator/withLatestFrom'
 import { Subject } from 'rxjs/Subject';
 
 export interface ScheduleItem {
@@ -33,13 +34,44 @@ export class ScheduleService {
 
     private date$ = new BehaviorSubject(new Date()); 
     private section$ = new Subject(); 
+    private itemList$ = new Subject(); 
+    
+    
+    items$ = this.itemList$
+        .withLatestFrom(this.section$)
+        .map(([items, section]:any []) => {
+            console.log("sections", section)
+            console.log("items", items)
+
+            const id = section.data.$key; 
+
+            const defaults:ScheduleItem = {
+                workouts:null, 
+                meals:null, 
+                section:section.section, 
+                timestamp:new Date(section.day).getTime()
+            }
+
+            const payload = {
+                ...(id ? section.data : defaults), 
+                ...items
+            }; 
+
+            if(id) {
+               return this.updateSection(id,payload)
+            } else {
+                return this.createSection(payload);
+            }
+
+
+        })
+
 
     selected$ = this.section$
         .do((next:any)=>this.store.set('selected', next))
 
     list$ = this.section$   
         .map((value:any)=> {
-            console.log("value of list", this.store.value)
             return this.store.value[value.type]
         })
         .do((next:any)=>this.store.set('list', next))
@@ -89,6 +121,10 @@ export class ScheduleService {
     get uid() {
         return this.authService.user.uid
     }
+
+    updateItems(items:string[]) {
+        this.itemList$.next(items);
+    }
     
     private getSchedule(startAt:number, endAt:number) {
         return this.db.list(`schedule/${this.uid}`, {
@@ -98,5 +134,13 @@ export class ScheduleService {
                 endAt
             }
         })
-    } 
+    }
+    
+    private updateSection(key:string, payload:ScheduleItem) {
+        return this.db.object(`schedule/${this.uid}/${key}`).update(payload)
+    }
+
+    private createSection(payload:ScheduleItem) {
+        return this.db.list(`schedule/${this.uid}`).push(payload);
+    }
 }

@@ -99,6 +99,7 @@ cancelAssign() {
 }
 
 toggleItem(name:string) {
+    console.log("selected string", this.selected)
     if(this.exists(name)) {
         this.selected = this.selected.filter(item => item!==name)
     } else {
