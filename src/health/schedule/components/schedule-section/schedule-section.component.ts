@@ -30,7 +30,7 @@ import { ScheduleItem } from '../../../shared/services/schedule/schedule.service
                 <div 
                     class="schedule-section__item workout"
                     *ngIf="section.workouts; else addWorkout"
-                    (click)="onSelect('workouts', section.meals)">
+                    (click)="onSelect('workouts', section.workouts)">
                     <span>{{ section.workouts | join }}</span>
                 </div>
                 <ng-template #addWorkout>

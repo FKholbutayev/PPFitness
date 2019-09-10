@@ -40,9 +40,6 @@ export class ScheduleService {
     items$ = this.itemList$
         .withLatestFrom(this.section$)
         .map(([items, section]:any []) => {
-            console.log("sections", section)
-            console.log("items", items)
-
             const id = section.data.$key; 
 
             const defaults:ScheduleItem = {
@@ -89,10 +86,10 @@ export class ScheduleService {
             return { startAt, endAt }
         }).switchMap(({startAt, endAt}:any) => this.getSchedule(startAt, endAt)
         ).map((data:any) => {
+            console.log("data schedule", data)
             const mapped: ScheduleList = {}
             
             for(const prop of data) {
-                console.log("data prop", prop)
                 if (!mapped[prop.section]) {
                     mapped[prop.section] = prop;
                   }
